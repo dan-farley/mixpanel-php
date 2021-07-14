@@ -19,7 +19,6 @@ class Base_MixpanelBase {
         "consumer"          => "curl", // which consumer to use
         "host"              => "api.mixpanel.com", // the host name for api calls
         "events_endpoint"   => "/track", // host relative endpoint for events
-        "import_endpoint"   => "/import", // host relative endpoint for past events import
         "people_endpoint"   => "/engage", // host relative endpoint for people updates
         "use_ssl"           => true, // use ssl when available
         "error_callback"    => null // callback to use on consumption failures

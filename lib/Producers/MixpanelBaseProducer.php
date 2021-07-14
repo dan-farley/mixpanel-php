@@ -19,8 +19,6 @@ abstract class Producers_MixpanelBaseProducer extends Base_MixpanelBase {
      */
     protected $_token;
 
-    public $_super_properties = array("mp_lib" => "php");
-
 
     /**
      * @var array a queue to hold messages in memory before flushing in batches

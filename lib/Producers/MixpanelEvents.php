@@ -9,6 +9,13 @@ require_once(dirname(__FILE__) . "/../ConsumerStrategies/CurlConsumer.php");
 class Producers_MixpanelEvents extends Producers_MixpanelBaseProducer {
 
     /**
+     * An array of properties to attach to every tracked event
+     * @var array
+     */
+    private $_super_properties = array("mp_lib" => "php");
+
+
+    /**
      * Track an event defined by $event associated with metadata defined by $properties
      * @param string $event
      * @param array $properties
@@ -22,26 +29,6 @@ class Producers_MixpanelEvents extends Producers_MixpanelBaseProducer {
         if (!array_key_exists('time', $properties)) $properties['time'] = time();
 
         $params['event'] = $event;
-        $params['properties'] = array_merge($this->_super_properties, $properties);
-
-        $this->enqueue($params);
-    }
-
-    /**
-     * Track an event defined by $event associated with metadata defined by $properties
-     * @param string $event
-     * @param array $properties
-     */
-    public function import($event, $properties = array()) {
-
-        // if no token is passed in, use current token
-        if (!array_key_exists("token", $properties)) $properties['token'] = $this->_token;
-
-        // if no time is passed in, use the current time
-        if (!array_key_exists('time', $properties)) $properties['time'] = time();
-
-        $params['event'] = $event;
-        $params['import'] = true;
         $params['properties'] = array_merge($this->_super_properties, $properties);
 
         $this->enqueue($params);

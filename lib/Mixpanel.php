@@ -3,7 +3,6 @@
 require_once(dirname(__FILE__) . "/Base/MixpanelBase.php");
 require_once(dirname(__FILE__) . "/Producers/MixpanelPeople.php");
 require_once(dirname(__FILE__) . "/Producers/MixpanelEvents.php");
-require_once(dirname(__FILE__) . "/Producers/MixpanelImport.php");
 
 /**
  * This is the main class for the Mixpanel PHP Library which provides all of the methods you need to track events and
@@ -121,14 +120,7 @@ class Mixpanel extends Base_MixpanelBase {
      * An instance of the MixpanelEvents class
      * @var Producers_MixpanelEvents
      */
-     private $_events;
-
-
-    /**
-     * An instance of the MixpanelImport class
-     * @var Producers_MixpanelImport
-     */
-    private $_import;
+    private $_events;
 
 
     /**
@@ -147,7 +139,6 @@ class Mixpanel extends Base_MixpanelBase {
         parent::__construct($options);
         $this->people = new Producers_MixpanelPeople($token, $options);
         $this->_events = new Producers_MixpanelEvents($token, $options);
-        $this->_import = new Producers_MixpanelImport($token, $options);
     }
 
 
@@ -210,24 +201,13 @@ class Mixpanel extends Base_MixpanelBase {
         $this->_events->identify($user_id, $anon_id);
     }
 
-
     /**
      * Track an event defined by $event associated with metadata defined by $properties
      * @param string $event
      * @param array $properties
      */
-     public function track($event, $properties = array()) {
+    public function track($event, $properties = array()) {
         $this->_events->track($event, $properties);
-    }
-
-
-    /**
-     * Track a past event defined by $event associated with metadata defined by $properties
-     * @param string $event
-     * @param array $properties
-     */
-     public function import($event, $properties = array()) {
-        $this->_events->import($event, $properties);
     }
 
 
