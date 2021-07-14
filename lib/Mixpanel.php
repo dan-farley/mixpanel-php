@@ -227,7 +227,7 @@ class Mixpanel extends Base_MixpanelBase {
      * @param array $properties
      */
      public function import($event, $properties = array()) {
-        $this->_import->import($event, $properties);
+        $this->_events->import($event, $properties);
     }
 
 

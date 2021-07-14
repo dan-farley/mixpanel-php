@@ -15,7 +15,13 @@ class ConsumerStrategies_CurlConsumer extends ConsumerStrategies_AbstractConsume
     /**
      * @var string the host-relative endpoint to write to (e.g. /engage)
      */
-    protected $_endpoint;
+     protected $_endpoint;
+
+
+     /**
+     * @var string the API secret from Mixpanel for use in the Import point
+     */
+    protected $_api_secret;
 
 
     /**
@@ -58,6 +64,7 @@ class ConsumerStrategies_CurlConsumer extends ConsumerStrategies_AbstractConsume
 
         $this->_host = $options['host'];
         $this->_endpoint = $options['endpoint'];
+        $this->_api_secret = $options['api_secret'] ?? false;
         $this->_connect_timeout = array_key_exists('connect_timeout', $options) ? $options['connect_timeout'] : 5;
         $this->_timeout = array_key_exists('timeout', $options) ? $options['timeout'] : 30;
         $this->_protocol = array_key_exists('use_ssl', $options) && $options['use_ssl'] == true ? "https" : "http";
@@ -124,6 +131,10 @@ class ConsumerStrategies_CurlConsumer extends ConsumerStrategies_AbstractConsume
             $data = "data=" . $this->_encode(array_splice($batch, 0, $batch_size));
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_HEADER, 0);
+            
+            if($this->_api_secret)
+                curl_setopt($ch, CURLOPT_USERPWD, $this->_api_secret . ":");
+
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->_connect_timeout);
             curl_setopt($ch, CURLOPT_TIMEOUT, $this->_timeout);
             curl_setopt($ch, CURLOPT_POST, 1);

@@ -9,13 +9,6 @@ require_once(dirname(__FILE__) . "/../ConsumerStrategies/CurlConsumer.php");
 class Producers_MixpanelImport extends Producers_MixpanelBaseProducer {
 
     /**
-     * An array of properties to attach to every tracked event
-     * @var array
-     */
-    private $_super_properties = array("mp_lib" => "php");
-
-
-    /**
      * Track an event defined by $event associated with metadata defined by $properties
      * @param string $event
      * @param array $properties
